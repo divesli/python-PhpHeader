@@ -1,3 +1,7 @@
+# @author divesli
+# @date 2014/10/24 18:35:09
+#
+
 import sublime, sublime_plugin
 import datetime,time
 import os,getpass
@@ -139,7 +143,7 @@ class PhpHeaderCommand(sublime_plugin.TextCommand):
         return "UTF-8"
 
     def getDomain(self):
-        return "360.cn"
+        return "xxx.cn"
 
 
 class PhpDocsCommand(sublime_plugin.TextCommand):
