@@ -1,0 +1,8 @@
+[
+    {
+        "caption":"New php file",
+        "id":"new-php-file",
+        "command":"php_header" 
+    },
+    { "caption": "-" }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "keys":["ctrl+h"],
+        "command":"php_header"
+    },
+    {
+        "keys":["shift+enter"],
+        "command":"php_docs"
+    }
+]
