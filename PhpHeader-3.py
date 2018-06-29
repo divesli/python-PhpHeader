@@ -150,7 +150,7 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
         string = self.view.substr(region).strip()
         docs = ''
         if string == "/**":
-            docs = self.getDocs(col)
+            docs = self.getDocs(self.view,point)
         else:
             self.view.run_command("insert",{"characters": "\n"})
             return 
@@ -165,10 +165,20 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
 
         self.view.show(pxy)
 
-    def getDocs(self,col):
+    def getDocs(self,view,point):
+        row,col = view.rowcol(point)
+        pxy = view.text_point(row+1,0)
+        string = view.substr(view.full_line(pxy)).strip()
+        x = string.find("(")
+        y = string.find(")")  
+        strParams = string[x+1:y] 
+        params = strParams.split(",") 
         space = " " * (col -2)
         docs = "\n"
         docs += space + "*\n"
         docs += space + "* @brief: \n"
+        for param in params:
+            docs += space + "* @param " + param.strip() + ": \n"
+        docs += space + "* @return: \n"
         docs += space + "*/"
         return docs 
