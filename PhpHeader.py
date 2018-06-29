@@ -170,7 +170,7 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
 
         self.view.show(pxy)
 
-    def getDocs(self,col):
+    def getDocs(self,view,point):
         row,col = view.rowcol(point)
         pxy = view.text_point(row+1,0)
         string = view.substr(view.full_line(pxy)).strip()
@@ -183,7 +183,7 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
         docs += space + "*\n"
         docs += space + "* @brief: \n"
         for param in params:
-            docs += space + "* @param " + param + ": \n"
+            docs += space + "* @param " + param.strip() + ": \n"
         docs += space + "* @return: \n"
         docs += space + "*/"
         return docs
