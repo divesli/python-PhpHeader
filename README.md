@@ -5,4 +5,5 @@ sublime text插件,实现在创建php文件时自动添加注释
 
 在sublime 菜单栏增加 “New php file”项，点击“New php file”是输入文件名,即可新建一个php文件,并且自动添加注释头和类框架
 ----------------------
-修改Side_Bar.sublime-menu文件名为 Side Bar.sublime-menu
+1. 修改Side_Bar.sublime-menu文件名为 Side Bar.sublime-menu
+2. 修改Default_(Windows).sublime-keymap文件名为Default.sublime-keymap
