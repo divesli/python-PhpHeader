@@ -159,7 +159,11 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
         else:
             self.view.run_command("insert",{"characters": "\n"})
             return 
-            
+        
+        if len(docs) == 0:
+            self.view.run_command("insert",{"characters": "\n"})
+            return
+        
         pt = rowrgn.end()
         self.view.insert(edit, pt, docs)
 
@@ -174,6 +178,10 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
         row,col = view.rowcol(point)
         pxy = view.text_point(row+1,0)
         string = view.substr(view.full_line(pxy)).strip()
+        isFunction = string.lower().find("function")
+        if isFunction == -1:
+            docs = ''
+            return docs
         x = string.find("(")
         y = string.find(")")  
         strParams = string[x+1:y] 
