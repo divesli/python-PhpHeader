@@ -8,15 +8,13 @@ class PhpHeaderCommand(sublime_plugin.WindowCommand):
         self.tab.window().show_input_panel("New file name:", "", self.do_input, None, self.do_cancel)
         self.setSyntax()
         self.tab.set_encoding("UTF-8")
-        #self.tab.run_command("second")
-        #sublime.set_timeout(lambda: self.tab.run_command("second"), 1000)
+
 
     def do_input(self, txt):
         try:
             if len(txt.strip()) == 0:
                 txt = "Demo"
             self.tab.set_name(txt+".php")
-            #sublime.set_timeout(lambda: self.tab.run_command("second"), 1000)
             self.tab.run_command("second")
         except Exception as e:
             raise e
@@ -38,6 +36,7 @@ class SecondCommand(sublime_plugin.TextCommand):
             d = self.getDemo()
             h = c + "\n\n" + i + "\n\n" + d
             self.view.insert(self.edit, 0, h) 
+            self.setCursor(self.view,self.edit)
         except Exception as e:
             raise e
 
@@ -45,11 +44,11 @@ class SecondCommand(sublime_plugin.TextCommand):
         sublime.message_dialog(txt)
 
     def setCursor(self, view, edit): 
-        key = "@brief:"
+        key = "@filecoding"
         region = sublime.Region(0,view.size())
-        point = view.substr(region).find(key) 
+        point = view.substr(region).find("@filecoding") 
         row,col = view.rowcol(point)    
-        pt = view.text_point(row,col+len(key)+1)
+        pt = view.text_point(row + 2,col)
 
         view.sel().clear()
         view.sel().add(sublime.Region(pt))
@@ -72,8 +71,9 @@ class SecondCommand(sublime_plugin.TextCommand):
 
         demo =  "class " + clname + " {\n\n"
         demo += "    /**\n"
+        demo += "     * construct functon\n"
         demo += "     *\n"
-        demo += "     * @brief: construct functon\n"
+        demo += "     * @return " + clname + " object\n"
         demo += "     */\n"
         demo += "    public function __construct() {\n"
         demo += "        //TODO \n"
@@ -104,8 +104,8 @@ class SecondCommand(sublime_plugin.TextCommand):
         desc += " * @date " + self.getTime() + "\n"
         desc += " * @version " + self.getVersion() + "\n"
         desc += " * @filecoding " + self.getFileCode() + "\n"
-        desc += " * @brief: \n"
-        desc += " *\n"
+        desc += " * \n"
+        desc += " * \n"
         desc += " */"
         return desc
 
