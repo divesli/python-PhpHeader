@@ -3,7 +3,7 @@
         "caption": "-"
     },
     {
-        "command": "build",
-        "caption": "Java Build"
+        "command": "php_header",
+        "caption": "New php file"
     }
 ]
