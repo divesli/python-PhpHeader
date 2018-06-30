@@ -23,6 +23,7 @@ class PhpHeaderCommand(sublime_plugin.WindowCommand):
 
     def do_cancel(self):
         self.tab.set_name("Demo.php")
+        self.tab.run_command("second")
 
     def setSyntax(self):
         self.tab.set_syntax_file("Packages/PHP/PHP.tmLanguage")
