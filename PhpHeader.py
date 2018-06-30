@@ -44,7 +44,6 @@ class SecondCommand(sublime_plugin.TextCommand):
         sublime.message_dialog(txt)
 
     def setCursor(self, view, edit): 
-        key = "@filecoding"
         region = sublime.Region(0,view.size())
         point = view.substr(region).find("@filecoding") 
         row,col = view.rowcol(point)    
