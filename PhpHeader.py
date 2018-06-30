@@ -163,7 +163,7 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
         pt = rowrgn.end()
         self.view.insert(edit, pt, docs)
 
-        pxy = self.view.text_point(row+2,col+len("@brief: "))
+        pxy = self.view.text_point(row+1,col)
 
         self.view.sel().clear()
         self.view.sel().add(sublime.Region(pxy))
@@ -173,19 +173,20 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
     def getDocs(self,view,point):
         row,col = view.rowcol(point)
         pxy = view.text_point(row+1,0)
+        space = " " * (col -2)
         string = view.substr(view.full_line(pxy)).strip()
         isFunction = string.lower().find("function")
         if isFunction == -1:
-            docs = ''
+            docs = "\n" + space + "* \n" + space + "*/"
             return docs
         x = string.find("(")
         y = string.find(")")  
         strParams = string[x+1:y] 
         params = strParams.split(",") 
-        space = " " * (col -2)
+        
         docs = "\n"
-        docs += space + "*\n"
-        docs += space + "* @brief: \n"
+        docs += space + "* \n"
+        docs += space + "* \n"
         for param in params:
             pm = param.strip()
             if len(pm) != 0:
