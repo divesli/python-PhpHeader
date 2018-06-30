@@ -183,7 +183,9 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
         docs += space + "*\n"
         docs += space + "* @brief: \n"
         for param in params:
-            docs += space + "* @param " + param.strip() + ": \n"
+            pm = param.strip()
+            if len(pm) != 0:
+                docs += space + "* @param " + pm + ": \n"
         docs += space + "* @return: \n"
         docs += space + "*/"
         return docs
