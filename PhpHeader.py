@@ -171,25 +171,32 @@ class PhpDocsCommand(sublime_plugin.TextCommand):
 
     def getDocs(self,view,point):
         row,col = view.rowcol(point)
-        pxy = view.text_point(row+1,0)
-        space = " " * (col -2)
+        pxy = view.text_point(row + 1, 0)
+        space = " " * (col - 2)
+        docs = "\n" + space + "* \n" + space + "*/"
         string = view.substr(view.full_line(pxy)).strip()
         isFunction = string.lower().find("function")
-        if isFunction == -1:
-            docs = "\n" + space + "* \n" + space + "*/"
-            return docs
         x = string.find("(")
+        if (isFunction == -1 or x == -1):
+            return docs
         y = string.find(")")  
+        for i in range(2,11):
+            pxy = view.text_point(row + i, 0)
+            string += view.substr(view.full_line(pxy)).strip()
+            y = string.find(")")
+            if y != -1:
+                break
+        if y == -1:
+            return docs
         strParams = string[x+1:y] 
         params = strParams.split(",") 
-        
         docs = "\n"
         docs += space + "* \n"
         docs += space + "* \n"
         for param in params:
             pm = param.strip()
             if len(pm) != 0:
-                docs += space + "* @param " + pm + ": \n"
-        docs += space + "* @return: \n"
+                docs += space + "* @param " + pm + " \n"
+        docs += space + "* @return \n"
         docs += space + "*/"
-        return docs 
+        return docs  
